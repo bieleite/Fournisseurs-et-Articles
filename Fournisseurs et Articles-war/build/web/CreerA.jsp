@@ -19,7 +19,7 @@
                 <label for="designationArticle"> Designation<span class="requis">*</span></label>
                 <input type="text" name="designationArticle" value="" size="20" maxlength="20"/>
                 <br/>
-                <label for="prixArticle"> Prix<span class="requis">*</span></label>
+                <label for="prixArticle"> Prix <span class="requis">*</span></label>
                 <input type="text" name="prixArticle" value="" size="80" maxlength="20"/>
                 <br/>
                 <label for="fournisseurArticle"> Fournisseur<span class="requis">*</span></label>
