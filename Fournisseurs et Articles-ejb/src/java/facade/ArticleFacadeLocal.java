@@ -31,8 +31,14 @@ public interface ArticleFacadeLocal {
 
     int count();
 
-    void creerArticle(String designation, String prix,Fournisseur Fourni);
+    void creerArticle(String designation, double prix,Fournisseur Fourni);
 
     List<Article> listeArticle();
+
+    List<Article> articleFounisseur(Fournisseur fournis);
+
+    double sommePrixArticle(Fournisseur fournis);
+
+   
     
 }

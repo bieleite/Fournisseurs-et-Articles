@@ -32,7 +32,7 @@ public interface FraicheurFacadeLocal {
 
     int count();
 
-    void creerFraicheur(Date dt_limite,String designation,String prix,Fournisseur Fourni);
+    void creerFraicheur(Date dt_limite,String designation,double prix,Fournisseur Fourni);
 
     List<Fraicheur> listFraicheur();
     

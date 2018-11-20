@@ -25,7 +25,6 @@ import javax.persistence.ManyToOne;
 public class Article implements Serializable {
 
     @ManyToOne
-    @Column(nullable=false)
     private Fournisseur Fourni;
 
     /**
@@ -46,14 +45,14 @@ public class Article implements Serializable {
         this.Fourni = Fourni;
     }
     @Column(nullable=false)
-    private String prix;
+    private double prix;
 
     /**
      * Get the value of prix
      *
      * @return the value of prix
      */
-    public String getPrix() {
+    public double getPrix() {
         return prix;
     }
 
@@ -62,7 +61,7 @@ public class Article implements Serializable {
      *
      * @param prix new value of prix
      */
-    public void setPrix(String prix) {
+    public void setPrix(double prix) {
         this.prix = prix;
     }
     @Column(nullable=false)

@@ -8,6 +8,7 @@ package facade;
 import entite.Article;
 import entite.Fournisseur;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -33,7 +34,7 @@ public class ArticleFacade extends AbstractFacade<Article> implements ArticleFac
     }
 
     @Override
-    public void creerArticle(String designation, String prix,Fournisseur Fourni) {
+    public void creerArticle(String designation, double prix,Fournisseur Fourni) {
         Article a = new Article();
         a.setDesignation(designation);
         a.setPrix(prix);
@@ -49,5 +50,26 @@ public class ArticleFacade extends AbstractFacade<Article> implements ArticleFac
         List<Article> result=req.getResultList();
         return result;
     }
+
+    @Override
+    public List<Article> articleFounisseur(Fournisseur fournis) {
+        Article result = null;
+        Query req = getEntityManager().createQuery("SELECT a FROM Article AS a WHERE a.Fourni=:fournis");
+        req.setParameter("fournis", fournis);
+        List<Article> l = req.getResultList();
+        return l;
+    }
+
+    @Override
+    public double sommePrixArticle(Fournisseur fournis) {
+//         Article result = null;
+        Query req = getEntityManager().createQuery("SELECT SUM(a.prix) FROM Article AS a WHERE a.Fourni=:fournis");
+        req.setParameter("fournis", fournis);
+        double d = (double)req.getSingleResult();
+        return d;
+    }
+
+   
+    
     
 }

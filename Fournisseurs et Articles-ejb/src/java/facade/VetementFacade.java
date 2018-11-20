@@ -33,7 +33,7 @@ public class VetementFacade extends AbstractFacade<Vetement> implements Vetement
     }
 
     @Override
-    public void creerVetement(String coloris,String designation,String prix,Fournisseur Fourni) {
+    public void creerVetement(String coloris,String designation,double prix,Fournisseur Fourni) {
         Vetement v = new Vetement();
         v.setColoris(coloris);
         v.setDesignation(designation);

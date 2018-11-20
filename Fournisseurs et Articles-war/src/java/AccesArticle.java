@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import entite.Article;
 import entite.Fournisseur;
 import entite.typeenum;
 import java.io.IOException;
@@ -61,18 +62,42 @@ public class AccesArticle extends HttpServlet {
             }
             else if(act.equals("insererA"))
             {
-                jspClient="/CreerA.jsp";
+                jspClient="/Choix.jsp";
                 doActionInsererA(request,response);
             }
             else if(act.equals("insererV"))
             {
-                jspClient="/CreerVetement.jsp";
+                jspClient="/Choix.jsp";
                 doActionInsererV(request,response);
             }
             else if(act.equals("insererFr"))
             {
-                jspClient="/CreerFraicheur.jsp";
+                jspClient="/Choix.jsp";
                 doActionInsererFr(request,response);
+            }
+            else if(act.equals("creerAF"))
+            {
+                List<Fournisseur> list= sessionFournisseur.afficherFournisseur();
+                request.setAttribute("listefournisseur",list);
+                jspClient="/CreerA.jsp";
+
+            
+            }
+            else if(act.equals("creerAFr"))
+            {
+                List<Fournisseur> list= sessionFournisseur.afficherFournisseur();
+                request.setAttribute("listefournisseur",list);
+                jspClient="/CreerFraicheur.jsp";
+
+            
+            }
+            else if(act.equals("creerAFv"))
+            {
+                List<Fournisseur> list= sessionFournisseur.afficherFournisseur();
+                request.setAttribute("listefournisseur",list);
+                jspClient="/CreerVetement.jsp";
+
+            
             }
             else if(act.equals("afficheF"))
             {
@@ -81,7 +106,42 @@ public class AccesArticle extends HttpServlet {
                 request.setAttribute("listefournisseur",list);
                 request.setAttribute("message","Liste des fournisseurs existants");
             }
-            
+            else if(act.equals("afficheAF"))
+            {
+                jspClient="/AfficherArticle.jsp";
+                String ide= request.getParameter("fournisseurArticle");
+                if(!ide.trim().isEmpty()){
+                Long id = Long.valueOf(ide);
+                List<Article> list= sessionArticle.AfficherArticleparFounisseur(id);
+                request.setAttribute("listefournisseur",list);
+                request.setAttribute("message","Liste des fournisseurs existants");
+                }
+            }
+            else if(act.equals("rechercherAPF"))
+            {
+      
+                List<Fournisseur> list= sessionFournisseur.afficherFournisseur();
+                request.setAttribute("listefournisseur",list);
+                jspClient="/RechercheFournisseur.jsp";
+            }
+            else if(act.equals("afficheAP"))
+            {
+                jspClient="/AfficherPrixArticle.jsp";
+                String ide= request.getParameter("fournisseurArticle");
+                if(!ide.trim().isEmpty()){
+                Long id = Long.valueOf(ide);
+                double list= sessionArticle.AfficherSumArticleFourni(id);
+                request.setAttribute("listefournisseur",list);
+                request.setAttribute("message","Liste des fournisseurs existants");
+                }
+            }
+            else if(act.equals("rechercherAPFP"))
+            {
+      
+                List<Fournisseur> list= sessionFournisseur.afficherFournisseur();
+                request.setAttribute("listefournisseur",list);
+                jspClient="/RecFourPrix.jsp";
+            }
         RequestDispatcher Rd;
         Rd = getServletContext().getRequestDispatcher(jspClient);
         Rd.forward(request, response);
@@ -134,7 +194,8 @@ public class AccesArticle extends HttpServlet {
         }
         else {
             Long id = Long.valueOf(idd);
-            sessionArticle.creerArticle(designation, prix, id);
+            Double pri = Double.valueOf(prix);
+            sessionArticle.creerArticle(designation, pri, id);
             message= "Article créé avec succès !";
             
         }
@@ -153,7 +214,8 @@ public class AccesArticle extends HttpServlet {
         }
         else {
             Long id = Long.valueOf(idd);
-            sessionArticle.creerVetement(designation, prix, coloris, id);
+            Double pri = Double.valueOf(prix);
+            sessionArticle.creerVetement(coloris, designation, pri,  id);
             message= "Article créé avec succès !";
             
         }
@@ -171,8 +233,9 @@ public class AccesArticle extends HttpServlet {
         }
         else {
             Long id = Long.valueOf(idd);
-            Date d = Date.valueOf(date_lim);   
-            sessionArticle.crerrFraicheur(d, designation, prix, id);
+            Date d = Date.valueOf(date_lim);
+            Double pri = Double.valueOf(prix);
+            sessionArticle.crerrFraicheur(d, designation, pri, id);
             message= "Article créé avec succès !";
             
         }

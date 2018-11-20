@@ -31,7 +31,7 @@ public interface VetementFacadeLocal {
 
     int count();
 
-    void creerVetement(String coloris,String designation,String prix,Fournisseur Fourni);
+    void creerVetement(String coloris,String designation,double prix,Fournisseur Fourni);
 
     List<Vetement> listVetement();
     

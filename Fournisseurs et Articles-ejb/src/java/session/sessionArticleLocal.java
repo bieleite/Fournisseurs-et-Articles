@@ -19,16 +19,20 @@ import javax.ejb.Local;
 @Local
 public interface sessionArticleLocal {
 
-    void creerArticle(String designation, String prix,Long id);
+    void creerArticle(String designation, double prix,Long id);
 
-    void creerVetement(String designation, String prix,String Coloris,Long id);
+    void creerVetement(String Coloris,String designation, double prix,Long id);
 
-    void crerrFraicheur(Date dt_limit,String designation, String prix,Long id);
+    void crerrFraicheur(Date dt_limit,String designation, double prix,Long id);
 
     List<Article> listeArticle();
 
     List<Vetement> listeVetement();
 
     List<Fraicheur> listeFraicheur();
+
+    List<Article> AfficherArticleparFounisseur(Long id);
+
+    double AfficherSumArticleFourni(Long id);
     
 }

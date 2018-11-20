@@ -38,4 +38,9 @@ public class sessionFournisseur implements sessionFournisseurLocal {
         List<Fournisseur> liste = fournisseurFacade.listFournisseur(); 
         return liste;
     }
+
+    @Override
+    public void fournisseurParNum(Long id) {
+        fournisseurFacade.rechercheFournisseur(id);
+    }
 }

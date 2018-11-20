@@ -35,7 +35,7 @@ public class FraicheurFacade extends AbstractFacade<Fraicheur> implements Fraich
     }
 
     @Override
-    public void creerFraicheur(Date dt_limite,String designation,String prix,Fournisseur Fourni) {
+    public void creerFraicheur(Date dt_limite,String designation,double prix,Fournisseur Fourni) {
         Fraicheur f = new Fraicheur();
         f.setDt_limite(dt_limite);
         f.setDesignation(designation);

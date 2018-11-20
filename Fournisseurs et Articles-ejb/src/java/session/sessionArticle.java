@@ -13,6 +13,7 @@ import facade.ArticleFacadeLocal;
 import facade.FournisseurFacadeLocal;
 import facade.FraicheurFacadeLocal;
 import facade.VetementFacadeLocal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -38,7 +39,7 @@ public class sessionArticle implements sessionArticleLocal {
     private FournisseurFacadeLocal fournisseurFacade;
 
     @Override
-    public void creerArticle(String designation, String prix,Long id) {
+    public void creerArticle(String designation, double prix,Long id) {
         Fournisseur Fourni = fournisseurFacade.rechercheFournisseur(id);
         if(Fourni !=null){
         articleFacade.creerArticle(designation, prix, Fourni);}
@@ -48,14 +49,15 @@ public class sessionArticle implements sessionArticleLocal {
     // "Insert Code > Add Business Method")
 
     @Override
-    public void creerVetement(String designation, String prix,String Coloris,Long id) {
+    public void creerVetement(String Coloris,String designation, double prix,Long id) {
         Fournisseur Fourni = fournisseurFacade.rechercheFournisseur(id);
         if(Fourni !=null){
-        vetementFacade.creerVetement(designation, prix,Coloris, Fourni);}
+        vetementFacade.creerVetement(Coloris,designation, prix, Fourni);
+        }
     }
 
     @Override
-    public void crerrFraicheur(Date dt_limit,String designation, String prix,Long id) {
+    public void crerrFraicheur(Date dt_limit,String designation, double prix,Long id) {
         Fournisseur Fourni = fournisseurFacade.rechercheFournisseur(id);
         if(Fourni !=null){
         fraicheurFacade.creerFraicheur(dt_limit,designation, prix, Fourni);}
@@ -76,6 +78,32 @@ public class sessionArticle implements sessionArticleLocal {
     @Override
     public List<Fraicheur> listeFraicheur() {
         List<Fraicheur> liste = fraicheurFacade.listFraicheur(); 
+        return liste;
+    }
+
+    @Override
+    public List<Article> AfficherArticleparFounisseur(Long id) {
+        List<Article> liste = new ArrayList<Article>();
+        Fournisseur f = fournisseurFacade.rechercheFournisseur(id);
+        if(f!=null){
+            liste = articleFacade.articleFounisseur(f);
+        }
+        else{
+            System.out.println("Le client n'existe pas !");
+        }
+        return liste;
+    }
+
+    @Override
+    public double AfficherSumArticleFourni(Long id) {
+       double liste = 0;
+        Fournisseur f = fournisseurFacade.rechercheFournisseur(id);
+        if(f!=null){
+            liste = articleFacade.sommePrixArticle(f);
+        }
+        else{
+            System.out.println("Le client n'existe pas !");
+        }
         return liste;
     }
 }

@@ -20,5 +20,7 @@ public interface sessionFournisseurLocal {
     void creerFounisseur(String nom, String adresse, typeenum type);
 
     List<Fournisseur> afficherFournisseur();
+
+    void fournisseurParNum(Long id);
     
 }
