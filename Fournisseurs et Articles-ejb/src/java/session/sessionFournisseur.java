@@ -40,7 +40,9 @@ public class sessionFournisseur implements sessionFournisseurLocal {
     }
 
     @Override
-    public void fournisseurParNum(Long id) {
-        fournisseurFacade.rechercheFournisseur(id);
+    public Fournisseur fournisseurParNum(Long id) {
+        Fournisseur f= null;
+       f= fournisseurFacade.rechercheFournisseur(id);
+        return f;
     }
 }

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -18,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import session.sessionArticleLocal;
 import session.sessionFournisseurLocal;
 
@@ -47,7 +49,10 @@ public class AccesArticle extends HttpServlet {
             throws ServletException, IOException {
       
             
-            
+        HttpSession sess= request.getSession(true);
+//        String ident = request.getParameter("identifiantFounisseur");
+//        Long id;
+//        Fournisseur f;
         String jspClient=null;
         String act=request.getParameter("action");
             if((act==null)||(act.equals("vide")))
@@ -112,6 +117,7 @@ public class AccesArticle extends HttpServlet {
                 String ide= request.getParameter("fournisseurArticle");
                 if(!ide.trim().isEmpty()){
                 Long id = Long.valueOf(ide);
+               
                 List<Article> list= sessionArticle.AfficherArticleparFounisseur(id);
                 request.setAttribute("listefournisseur",list);
                 request.setAttribute("message","Liste des fournisseurs existants");
@@ -119,7 +125,7 @@ public class AccesArticle extends HttpServlet {
             }
             else if(act.equals("rechercherAPF"))
             {
-      
+                
                 List<Fournisseur> list= sessionFournisseur.afficherFournisseur();
                 request.setAttribute("listefournisseur",list);
                 jspClient="/RechercheFournisseur.jsp";
@@ -137,10 +143,39 @@ public class AccesArticle extends HttpServlet {
             }
             else if(act.equals("rechercherAPFP"))
             {
-      
+
                 List<Fournisseur> list= sessionFournisseur.afficherFournisseur();
                 request.setAttribute("listefournisseur",list);
                 jspClient="/RecFourPrix.jsp";
+                
+            }
+            else if(act.equals("loginFourni"))
+            {
+                List<Fournisseur> list= sessionFournisseur.afficherFournisseur();
+                request.setAttribute("listefournisseur",list);
+                jspClient="/RechF.jsp";
+//                if(!(ident.trim().isEmpty())){
+//                    id= Long.valueOf(ident);
+//                    f = sessionFournisseur.fournisseurParNum(id);
+//                    sess.setAttribute("four", f);
+//                }
+//                else{
+//                    jspClient="/Choix.jsp";
+//                }
+                
+            }
+            else if(act.equals("rechercherLogin"))
+            {
+                String ident = request.getParameter("identifiantFounisseur");
+                if(!(ident.trim().isEmpty())){
+                Long id= Long.valueOf(ident);
+                Fournisseur f= sessionFournisseur.fournisseurParNum(id);
+                 sess.setAttribute("four", f);
+                jspClient="/AfficherUnFournisseur.jsp";
+                }
+                else{
+                     jspClient="/Choix.jsp";
+                }
             }
         RequestDispatcher Rd;
         Rd = getServletContext().getRequestDispatcher(jspClient);

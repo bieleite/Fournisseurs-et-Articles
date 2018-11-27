@@ -21,6 +21,6 @@ public interface sessionFournisseurLocal {
 
     List<Fournisseur> afficherFournisseur();
 
-    void fournisseurParNum(Long id);
+    Fournisseur fournisseurParNum(Long id);
     
 }

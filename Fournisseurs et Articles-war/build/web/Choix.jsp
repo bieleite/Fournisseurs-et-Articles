@@ -29,6 +29,7 @@
                 <td width="25%"><a href="AccesArticle?action=afficheF">Afficher Fournisseur</a></td>
                 <td width="25%"><a href="AccesArticle?action=rechercherAPF">Afficher Article</a></td>
                 <td width="25%"><a href="AccesArticle?action=rechercherAPFP">Afficher Prix Article</a></td>
+                <td width="25%"><a href="AccesArticle?action=loginFourni">Login Fournisseur</a></td>
             </tr>
         </table>
     </body>
